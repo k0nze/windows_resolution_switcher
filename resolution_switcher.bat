@@ -1,0 +1,1 @@
+cd "C:\Users\konze\Programming\windows_resolution_switcher" & .\.venv\Scripts\activate & pythonw resolution_switcher.py
