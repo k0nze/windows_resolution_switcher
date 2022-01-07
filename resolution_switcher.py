@@ -6,7 +6,7 @@ from PIL import Image
 from pystray import MenuItem as item
 
 
-def on_set_resolution(width: int, height:int):
+def on_set_resolution(width: int, height: int):
     # adapted from Peter Wood: https://stackoverflow.com/a/54262365
     devmode = pywintypes.DEVMODEType()
     devmode.PelsWidth = width
