@@ -1,5 +1,3 @@
-from typing import Tuple
-
 import pystray
 import pywintypes
 import win32api
