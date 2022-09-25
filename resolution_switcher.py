@@ -79,7 +79,19 @@ def get_initial_dpi_scale():
     return raw_res[0] / transformed_res[0]  # 125% is 1.25
 
 
-@lru_cache(maxsize=2)
+@lru_cache(maxsize=1)
+def get_all_refresh_rates():
+    i = 0
+    refresh_rates = set()
+    with suppress(Exception):
+        while True:
+            ds = win32api.EnumDisplaySettings(None, i)
+            refresh_rates.add(ds.DisplayFrequency)
+            i += 1
+    return refresh_rates
+
+
+@lru_cache(maxsize=1)
 def get_all_resolutions():
     i = 0
     resolutions = []
