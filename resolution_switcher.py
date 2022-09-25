@@ -72,7 +72,7 @@ def get_recommended_dpi_idx():
     raise IndexError
 
 
-def on_set_resolution(width: int, height: int):
+def set_resolution(width: int, height: int):
     # adapted from Peter Wood: https://stackoverflow.com/a/54262365
     devmode = pywintypes.DEVMODEType()
     devmode.PelsWidth = width
@@ -97,7 +97,7 @@ def on_set_resolution(width: int, height: int):
 
 def set_res_curry(width, height):
     # ensure correct values are used when lambda executes
-    return lambda: on_set_resolution(width, height)
+    return lambda: set_resolution(width, height)
 
 
 def get_res_item_text(width, height, show_height=False):
