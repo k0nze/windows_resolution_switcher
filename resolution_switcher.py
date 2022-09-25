@@ -16,6 +16,36 @@ CHANGE_DPI_SCALE = True
 MENU_SHOW_HEIGHT = False
 
 
+def is_plugged_in():
+    """
+    Returns True if laptop or PC is plugged in
+    might throw ImportError on Linux
+    throws RuntimeError
+    """
+    from ctypes import wintypes
+
+    class SYSTEM_POWER_STATUS(ctypes.Structure):
+        _fields_ = [
+            ('ACLineStatus', ctypes.c_ubyte),
+            ('BatteryFlag', ctypes.c_ubyte),
+            ('BatteryLifePercent', ctypes.c_ubyte),
+            ('SystemStatusFlag', ctypes.c_ubyte),
+            ('BatteryLifeTime', wintypes.DWORD),
+            ('BatteryFullLifeTime', wintypes.DWORD),
+        ]
+
+    SYSTEM_POWER_STATUS_P = ctypes.POINTER(SYSTEM_POWER_STATUS)
+
+    GetSystemPowerStatus = ctypes.windll.kernel32.GetSystemPowerStatus
+    GetSystemPowerStatus.argtypes = [SYSTEM_POWER_STATUS_P]
+    GetSystemPowerStatus.restype = wintypes.BOOL
+
+    status = SYSTEM_POWER_STATUS()
+    if not GetSystemPowerStatus(ctypes.pointer(status)):
+        raise RuntimeError('could not get power status')
+    return status.ACLineStatus == 1
+
+
 def get_aspect_ratio(width, height):
     return round(width / height, 2)
 
