@@ -1,2 +1,2 @@
-pystray==0.19.2
-pywin32==303
+pystray~=0.19.4
+pywin32~=303

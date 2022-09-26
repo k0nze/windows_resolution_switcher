@@ -1,26 +1,28 @@
 # Windows Resolution Switcher
 
 This short Python script allows you to easily switch the resolution of your main monitor from the Windows 10/11 system tray.
+
 ## Setup Video
+
 <a href="https://youtu.be/Vrg4RhjxztE">
     <img src="./images/youtube_thumbnail.png" width="500"/>
 </a>
 
 [Youtube Video Link](https://youtu.be/Vrg4RhjxztE)
 
-
-[![`[YouTube]`](https://img.shields.io/badge/-k0nze%20builds-ff0000?logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC3_SywgWxpEBIoKawK2E3MA) 
-[![`[Twitter]`](https://img.shields.io/badge/-@k0nze_-1DA1F2?logo=twitter&logoColor=white)](https://twitter.com/k0nze_) 
+[![`[YouTube]`](https://img.shields.io/badge/-k0nze%20builds-ff0000?logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC3_SywgWxpEBIoKawK2E3MA)
+[![`[Twitter]`](https://img.shields.io/badge/-@k0nze_-1DA1F2?logo=twitter&logoColor=white)](https://twitter.com/k0nze_)
 [![`[Discord]`](https://img.shields.io/discord/713121297407672380.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.k0nze.gg)
 [![`[Patreon]`](https://img.shields.io/badge/-Patreon-f96854?logo=patreon&logoColor=white)](https://patreon.com/k0nze)
 [![`[LinkedIn]`](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/konstantin-luebeck/)
 
+![Windows Resolution Switcher](screenshot1.png)
+![Windows Resolution Switcher](screenshot2.png)
 
-![Windows Resolution Switcher](screenshot.png)
 ## Prerequisits
 
- * Windows 10 or 11
- * Python Version >= 3.9
+* Windows 10 or 11
+* Python Version >= 3.9
 
 ## Setup
 
