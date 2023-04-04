@@ -1,0 +1,1 @@
+CalculatorApp.exe,2560,1440
