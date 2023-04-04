@@ -8,11 +8,14 @@ import pystray
 from PIL import Image
 from pystray import MenuItem as item
 
+import time
+import psutil
 # for cross platform https://stackoverflow.com/a/20996948/7732434?
 
 CHANGE_DPI_SCALE = True
 MENU_SHOW_HEIGHT = False
 
+ENABLE_MONITOR = True
 
 if platform.system() == 'Windows':
     from ctypes import wintypes
@@ -196,6 +199,91 @@ def on_exit():
     icon.visible = False
     icon.stop()
 
+def enable_mon():
+    global ENABLE_MONITOR
+    ENABLE_MONITOR = True
+    print("on")
+
+def disable_mon():
+    global ENABLE_MONITOR
+    ENABLE_MONITOR = False
+    print("off")
+
+def main_loop(icon):
+    #while True:
+    icon.visible = True
+
+    applist = []
+
+    standardResolutions = []
+    for k, v in get_all_resolutions().items():
+        standardResolutions.append(str(v['w'])+"x"+str(v['h']))
+
+    currentRes = get_initial_res()
+    currentDPI = get_initial_dpi_scale()
+    
+
+    latestChangedProcess = 0   
+
+    #print(applistReso)
+
+    old_set = set(list(psutil.process_iter()))
+
+            
+    while icon.visible:
+        if ENABLE_MONITOR == True:
+            #placed in ther while loop intentionally so the file will be reloaded without restarting the entire script, possible DoS condition from large files
+            try:
+                applistfile = open('applist.txt', 'r')
+                lines = applistfile.readlines()
+                successRead = True
+            except:
+                successRead = False
+                pass
+
+            if successRead:            
+
+                applistReso = {}
+
+                for line in lines:
+                    if len(line.split(",")) == 3:                
+                        processName = line.split(",")[0]
+                        processWidth = line.split(",")[1]
+                        processHeight = line.split(",")[2]
+                        if processWidth+"x"+processHeight in standardResolutions:
+                            applist.append(processName)
+                            applistReso[processName] = [int(processWidth), int(processHeight),]
+
+                new_set = set(list(psutil.process_iter()))
+                added = new_set - old_set
+                newProcessNames=[]
+                for p in added:
+                    try:
+                        newProcessNames.append(str(p.name()))
+                    except:
+                        pass
+
+                for n in newProcessNames:
+                    if n in applist:
+                        latestChangedProcess = n 
+                        set_resolution(applistReso[n][0], applistReso[n][1], 1.0)
+                old_set = new_set
+                time.sleep(0.1)
+
+                latestProcessNames = []
+                for item in new_set:
+                    try:
+                        latestProcessNames.append(item.name())
+                    except:
+                        pass
+
+                if latestChangedProcess != 0:
+                    if latestChangedProcess not in latestProcessNames:
+                        set_resolution(currentRes[0], currentRes[1], currentDPI)
+                        latestChangedProcess = 0              
+
+
+
 
 if __name__ == '__main__':
     mp.freeze_support()
@@ -203,6 +291,11 @@ if __name__ == '__main__':
     get_initial_dpi_scale()
     image = Image.open('icon.png')
     menu = [item(k, set_res_curry(v['w'], v['h'], v['dpi_scale'])) for k, v in get_all_resolutions().items()]
+    menu.append(item('Enable Process Monitoring (Default On)', enable_mon))
+    menu.append(item('Disable Process Monitoring', disable_mon))
     menu.append(item('Exit', on_exit))
     icon = pystray.Icon('Resolution Switcher', image, 'Resolution Switcher', menu)
-    icon.run()
+
+    icon.run(main_loop)
+
+    
