@@ -1,3 +1,7 @@
+THIS IS AN UNOFFICIAL FORK TO ADD SUPPORT FOR AUTO-CHANGING RESOLUTION BASED ON NEWLY RUN PROCESS
+REFER TO applist.txt FOR EXAMPLES
+
+
 # Windows Resolution Switcher
 
 This short Python script allows you to easily switch the resolution of your main monitor from the Windows 10/11 system tray.
