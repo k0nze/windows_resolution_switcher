@@ -213,7 +213,7 @@ def main_loop(icon):
     #while True:
     icon.visible = True
 
-    applist = []
+    
 
     standardResolutions = []
     for k, v in get_all_resolutions().items():
@@ -233,6 +233,9 @@ def main_loop(icon):
     while icon.visible:
         if ENABLE_MONITOR == True:
             #placed in ther while loop intentionally so the file will be reloaded without restarting the entire script, possible DoS condition from large files
+
+            applist = []
+
             try:
                 applistfile = open('applist.txt', 'r')
                 lines = applistfile.readlines()
@@ -241,7 +244,8 @@ def main_loop(icon):
                 successRead = False
                 pass
 
-            if successRead:            
+            if successRead:
+                           
 
                 applistReso = {}
 
@@ -249,10 +253,17 @@ def main_loop(icon):
                     if len(line.split(",")) == 3:                
                         processName = line.split(",")[0]
                         processWidth = line.split(",")[1]
-                        processHeight = line.split(",")[2]
+                        processHeight = line.split(",")[2].replace("\n","")
+
+                        
                         if processWidth+"x"+processHeight in standardResolutions:
+                            #print(processName)
                             applist.append(processName)
-                            applistReso[processName] = [int(processWidth), int(processHeight),]
+                            applistReso[processName] = [int(processWidth), int(processHeight)]
+                        else:
+                           print(processWidth+"x"+processHeight+ "is not in" + str(standardResolutions))     
+                
+                print(applist)
 
                 new_set = set(list(psutil.process_iter()))
                 added = new_set - old_set
@@ -263,8 +274,13 @@ def main_loop(icon):
                     except:
                         pass
 
+
+                #print(newProcessNames)
+
                 for n in newProcessNames:
+                    #print("a")
                     if n in applist:
+                        print("tlou") 
                         latestChangedProcess = n 
                         set_resolution(applistReso[n][0], applistReso[n][1], 1.0)
                 old_set = new_set
