@@ -30,8 +30,8 @@ This short Python script allows you to easily switch the resolution of your main
  2. Setup a virtual environment inside of the repository: `python -m venv .venv`
  3. Activate the environment: `.\.venv\Scripts\activate`
  4. Install the required Python packages: `python -m pip install -r requirements.txt`
- 5. Add your Resolutions: In the file [resolution_switcher.py](./resolution_switcher.py) you find the `menu` tuple and it's `item`s. Here you can add your custom resolution by either adding another `item` or editing the existing ones that call `on_set_resolution(width, height)`.
- 6. Change the path to the repository in [resolution_switcher.bat](resolution_switcher.bat). The path after the `cd` command enclosed by `"` has to be changed to the path of this repository on your computer.
+ 5. ~~Add your Resolutions: In the file [resolution_switcher.py](./resolution_switcher.py) you find the `menu` tuple and it's `item`s. Here you can add your custom resolution by either adding another `item` or editing the existing ones that call `on_set_resolution(width, height)`.~~
+ 6. ~~Change the path to the repository in [resolution_switcher.bat](resolution_switcher.bat). The path after the `cd` command enclosed by `"` has to be changed to the path of this repository on your computer.~~
  8. Check if it works by double-clicking on [resolution_switcher.vbs](./resolution_switcher.vbs) and right-clicking on the **RS** icon in the system tray.
  9. Create a shortcut for [resolution_switcher.vbs](./resolution_switcher.vbs)
  10. Add the shortcut to the Windows startup: Press **Win+R** and enter `shell:startup` and move the created shortcut into the newly opened folder in the Explorer.
